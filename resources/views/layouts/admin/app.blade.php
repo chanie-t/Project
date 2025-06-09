@@ -17,9 +17,35 @@
     <link rel="apple-touch-icon-precomposed" href="images/favicon.ico">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/sweetalert.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/custom.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body class="body">
+    @if (session('success'))
+        <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 9999">
+            <div class="toast show align-items-center text-bg-success border-0 " role="alert">
+                <div class="d-flex">
+                    <div class="toast-body " style="font-size: 20px; font-weight: 600;">
+                        {{ session('success') }}
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                </div>
+            </div>
+        </div>
+    @endif
+    @if (session('error'))
+        <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 9999">
+            <div class="toast show align-items-center text-bg-danger border-0" role="alert">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        {{ session('error') }}
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                </div>
+            </div>
+        </div>
+    @endif
+
     <div id="wrapper">
         <div id="page" class="">
             <div class="layout-wrap">
@@ -372,6 +398,28 @@
             jQuery(window).on("resize", function () { });
         })(jQuery);
     </script>
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const toastSuccessEl = document.getElementById('toast-success');
+            const toastErrorEl = document.getElementById('toast-error');
+
+            // Hàm ẩn toast với hiệu ứng mờ dần
+            function hideToast(toastEl) {
+                if (!toastEl) return;
+                // Bootstrap toast có thể dùng phương thức 'hide', hoặc ta tự ẩn
+                const toast = bootstrap.Toast.getInstance(toastEl.querySelector('.toast')) 
+                    || new bootstrap.Toast(toastEl.querySelector('.toast'));
+                toast.hide();
+            }
+
+            // Tự ẩn sau 5 giây (5000 ms)
+            setTimeout(() => {
+                hideToast(toastSuccessEl);
+                hideToast(toastErrorEl);
+            }, 5000);
+        });
+    </script>
+
 </body>
 
 </html>
