@@ -56,7 +56,7 @@
                             <td>{{$loop->iteration}}</td>
                             <td class="pname">
                                 <div class="image">
-                                    <img src="1718066463.html" alt="{{$product->name}}" class="image">
+                                    <img src="{{$product->image_url}}" alt="{{$product->name}}" class="image">
                                 </div>
                                 <div class="name overflow-hidden">
                                     <a href="#" class="body-title-2 truncate" title="{{$product->name}}">{{$product->name}}</a>
@@ -71,7 +71,7 @@
                             <td class="text-center">
                                 @if ($product->status == 'stock')
                                     <span class="badge bg-success px-4 py-2 fs-4 fw-semibold d-inline-flex align-items-center">
-                                        <i class="bi bi-check-circle-fill me-3"></i> Đang bán
+                                        <i class="bi bi-check-circle-fill me-3"></i> Còn hàng
                                     </span>
                                 @elseif ($product->status == 'out_of_stock')
                                     <span class="badge bg-warning text-dark px-4 py-2 fs-4 fw-semibold d-inline-flex align-items-center">
@@ -85,21 +85,22 @@
                             </td>
                             <td>
                                 <div class="list-icon-function">
-                                    <a href="#" target="_blank">
+                                    <a href="{{route('products.show',$product->id)}}" >
                                         <div class="item eye">
                                             <i class="icon-eye"></i>
                                         </div>
                                     </a>
-                                    <a href="#">
+                                    <a href="{{ route('products.edit', $product->id) }}">
                                         <div class="item edit">
                                             <i class="icon-edit-3"></i>
                                         </div>
                                     </a>
-                                    <form action="#" method="POST">
+                                    <form action="{{ route('products.destroy', $product->id) }}" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xoá sản phẩm này?')">
                                         @csrf
-                                        <div class="item text-danger delete">
+                                        @method('DELETE')
+                                        <button type="submit" class="">
                                             <i class="icon-trash-2"></i>
-                                        </div>
+                                        </button>
                                     </form>
                                 </div>
                             </td>
