@@ -93,7 +93,7 @@
                                     </a>
                                 </li>
                                 <li class="menu-item">
-                                    <a href="{{ route('product.index') }}" class="">
+                                    <a href="{{ route('products.index') }}" class="">
                                         <div class="icon"><i class="icon-shopping-cart"></i></div>
                                         <div class="text">Quản lý sản phẩm</div>
                                     </a>
@@ -295,8 +295,8 @@
 
     <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('assets/js/bootstrap-select.min.js') }}"></script>   
-    <script src="{{ asset('assets/js/sweetalert.min.js') }}"></script>    
+    <script src="{{ asset('assets/js/bootstrap-select.min.js') }}"></script>
+    <script src="{{ asset('assets/js/sweetalert.min.js') }}"></script>
     <script src="{{ asset('assets/js/apexcharts/apexcharts.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
     {{ $script }}
@@ -407,7 +407,7 @@
             function hideToast(toastEl) {
                 if (!toastEl) return;
                 // Bootstrap toast có thể dùng phương thức 'hide', hoặc ta tự ẩn
-                const toast = bootstrap.Toast.getInstance(toastEl.querySelector('.toast')) 
+                const toast = bootstrap.Toast.getInstance(toastEl.querySelector('.toast'))
                     || new bootstrap.Toast(toastEl.querySelector('.toast'));
                 toast.hide();
             }

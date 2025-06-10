@@ -46,7 +46,7 @@
                                                 tabindex="0" value="" aria-required="true" required="">
                                         </fieldset>
                                         <fieldset class="description">
-                                            <div class="body-title">Mô tả 
+                                            <div class="body-title">Mô tả
                                             </div>
                                             <input class="flex-grow" type="text" placeholder="Nhập mô tả" name="description"
                                                 tabindex="0" value="" aria-required="true" required="">
