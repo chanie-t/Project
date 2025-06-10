@@ -42,23 +42,23 @@
     @enderror
 </fieldset>
 
-                                       <fieldset class="name">
-    <div class="body-title">Category Slug <span class="tf-color-1">*</span></div>
-    <input id="slug" class="flex-grow" type="text" placeholder="Category Slug" name="slug"
-        value="{{ old('slug', $category->slug) }}" required>
-    @error('slug')
-        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-    @enderror
-</fieldset>
+                                                                        <fieldset class="name">
+                                        <div class="body-title">Category Slug <span class="tf-color-1">*</span></div>
+                                        <input id="slug" class="flex-grow" type="text" placeholder="Category Slug" name="slug"
+                                            value="{{ old('slug', $category->slug) }}" required>
+                                        @error('slug')
+                                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                        @enderror
+                                    </fieldset>
 
-<fieldset class="name">
-    <div class="body-title">Description <span class="tf-color-1">*</span></div>
-    <input class="flex-grow" type="text" placeholder="Category description" name="description"
-        value="{{ old('description', $category->description) }}" required>
-    @error('description')
-        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-    @enderror
-</fieldset>
+                                    <fieldset class="name">
+                                        <div class="body-title">Description <span class="tf-color-1">*</span></div>
+                                        <input class="flex-grow" type="text" placeholder="Category description" name="description"
+                                            value="{{ old('description', $category->description) }}" required>
+                                        @error('description')
+                                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                        @enderror
+                                    </fieldset>
 
                                         <div class="bot">
                                             <div></div>
