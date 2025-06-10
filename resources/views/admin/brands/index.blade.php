@@ -32,8 +32,8 @@
                                                 </div>
                                             </form>
                                         </div>
-                                        <a class="tf-button style-1 w208" href="add-brand.html"><i
-                                                class="icon-plus"></i>Add new</a>
+                                        <a class="tf-button style-1 w208" href="{{route('brands.create')}}"><i
+                                                class="icon-plus"></i>Thêm danh mục</a>
                                     </div>
                                     <div class="wg-table table-all-user">
                                         <div class="table-responsive">
@@ -41,41 +41,38 @@
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>Name</th>
+                                                        <th>Tên danh mục</th>
                                                         <th>Slug</th>
-                                                        <th>Products</th>
-                                                        <th>Action</th>
+                                                        <th>Mô tả</th>
+                                                        <th>Thao tác</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    @foreach($brands as $brand)
                                                     <tr>
-                                                        <td>4</td>
-                                                        <td class="pname">
-                                                            <div class="image">
-                                                                <img src="1718066367.html" alt="" class="image">
-                                                            </div>
-                                                            <div class="name">
-                                                                <a href="#" class="body-title-2">Brand4</a>
-                                                            </div>
-                                                        </td>
-                                                        <td>brand4</td>
-                                                        <td><a href="#" target="_blank">1</a></td>
+                                                        <td>{{$loop->iteration}}</td>
+                                                        <td>{{$brand->name}}</td>
+                                                        <td>{{$brand->slug}}</td>
+                                                        <td><a href="#" target="_blank">{{$brand->description}}</a></td>
                                                         <td>
-                                                            <div class="list-icon-function">
-                                                                <a href="#">
-                                                                    <div class="item edit">
-                                                                        <i class="icon-edit-3"></i>
-                                                                    </div>
+                                                            <div class="list-icon-function d-flex gap-2">
+                                                                {{-- Nút sửa --}}
+                                                                <a href="{{ route('brands.edit', $brand->id) }}" class="action-icon" title="Chỉnh sửa">
+                                                                    <i class="icon-edit-3"></i>
                                                                 </a>
-                                                                <form action="#" method="POST">
-                                                                    <div class="item text-danger delete">
+
+                                                                {{-- Nút xoá --}}
+                                                                <form action="{{ route('brands.destroy', $brand->id) }}" method="POST" onsubmit="return confirm('Bạn có chắc muốn xóa?')" style="display: inline;">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit" class="action-icon text-danger bg-transparent border-0 p-0" title="Xoá">
                                                                         <i class="icon-trash-2"></i>
-                                                                    </div>
+                                                                    </button>
                                                                 </form>
                                                             </div>
                                                         </td>
                                                     </tr>
-                                                </tbody>
+                                                    @endforeach
                                             </table>
                                         </div>
                                         <div class="divider"></div>
@@ -94,6 +91,6 @@
 </div>
     </x-slot>
     <x-slot name="script">
-        
+
     </x-slot>
 </x-admin.admin-layout>
