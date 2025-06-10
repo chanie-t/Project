@@ -6,10 +6,10 @@
             <!-- main-content-wrap -->
             <div class="main-content-wrap">
                 <div class="flex items-center flex-wrap justify-between gap20 mb-27">
-                    <h3>Add Product</h3>
+                    <h3>Chỉnh sửa sản phẩm</h3>
                     <ul class="breadcrumbs flex items-center flex-wrap justify-start gap10">
                         <li>
-                            <a href="index-2.html">
+                            <a href="{{ route('dashboard') }}" class="flex items-center gap5">
                                 <div class="text-tiny">Dashboard</div>
                             </a>
                         </li>
@@ -17,92 +17,104 @@
                             <i class="icon-chevron-right"></i>
                         </li>
                         <li>
-                            <a href="all-product.html">
-                                <div class="text-tiny">Products</div>
+                            <a href="{{ route('products.index') }}">
+                                <div class="text-tiny">Quản lý sản phẩm</div>
                             </a>
                         </li>
                         <li>
                             <i class="icon-chevron-right"></i>
                         </li>
                         <li>
-                            <div class="text-tiny">Add product</div>
+                            <div class="text-tiny">Chỉnh sửa sản phẩm</div>
                         </li>
                     </ul>
                 </div>
-                <!-- form-add-product -->
-                <form class="tf-section-2 form-add-product" method="POST" enctype="multipart/form-data"
-                    action="{{ route('products.store') }}">
+                <form class="tf-section-2 form-add-product" enctype="multipart/form-data"
+                    action="{{ route('products.update',$product->id) }}" method="POST">
+                    @method('PUT')
                     @csrf
                     <div class="wg-box">
                         <fieldset class="name">
                             <div class="body-title mb-10">Tên sản phẩm <span class="tf-color-1">*</span></div>
                             <input id="name" class="mb-10" type="text" placeholder="Nhập tên sản phẩm"
-                                name="name" tabindex="0" value="" aria-required="true" required>
+                                name="name" tabindex="0" value="{{$product->name}}" aria-required="true" required>
                             <div class="text-tiny">Không nhập quá 100 kí tự</div>
+                            @error('name')
+                                <div class="text-red-600 text-xs mt-1">{{ $message }}</div>
+                            @enderror
                         </fieldset>
 
                         <fieldset class="name">
                             <div class="body-title mb-10">Slug <span class="tf-color-1">*</span></div>
-                            <input id="slug" class="mb-10" type="text" placeholder="Nhập slug" readonly
-                                name="slug" tabindex="0" value="" aria-required="true" required>
+                            <input id="slug" class="mb-10" type="text" placeholder="Nhập slug"
+                                name="slug" tabindex="0" value="{{$product->slug}}" aria-required="true" required>
                             <div class="text-tiny">Slug sẽ được tạo tự động từ tên sản phẩm.</div>
+                            @error('slug')
+                                <div class="text-red-600 text-xs mt-1">{{ $message }}</div>
+                            @enderror
                         </fieldset>
-
 
                         <div class="gap22 cols">
                             <fieldset class="category">
                                 <div class="body-title mb-10">Danh mục <span class="tf-color-1">*</span>
                                 </div>
                                 <div class="select">
-                                    <select class="" name="category_id">
-                                        <option>Chọn danh mục</option>
+                                    <select class="" name="category_id" required>
+                                        <option value="">Chọn danh mục</option>
                                         @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>)
+                                        <option value="{{ $category->id }}" {{$product->category->id === $category->id ? "selected" : ""}}>{{ $category->name }}</option>
                                         @endforeach
-
                                     </select>
                                 </div>
+                                @error('category_id')
+                                    <div class="text-red-600 text-xs mt-1">{{ $message }}</div>
+                                @enderror
                             </fieldset>
                             <fieldset class="brand">
                                 <div class="body-title mb-10">Nhãn hàng <span class="tf-color-1">*</span>
                                 </div>
                                 <div class="select">
-                                    <select class="" name="brand_id">
-                                        <option>Chọn nhãn hàng</option>
+                                    <select class="" name="brand_id" required>
+                                        <option value="">Chọn nhãn hàng</option>
                                         @foreach ($brands as $brand)
-                                        <option value="{{ $brand->id }}">{{ $brand->name }}</option>)
+                                        <option value="{{ $brand->id }}" {{$product->brand->id === $brand->id ? "selected" : ""}}>{{ $brand->name }}</option>
                                         @endforeach
-
                                     </select>
                                 </div>
+                                @error('brand_id')
+                                    <div class="text-red-600 text-xs mt-1">{{ $message }}</div>
+                                @enderror
                             </fieldset>
                         </div>
 
                         <fieldset class="shortdescription">
-                            <div class="body-title mb-10">Mô tả ngắn <span
-                                    class="tf-color-1">*</span></div>
+                            <div class="body-title mb-10">Mô tả ngắn <span class="tf-color-1">*</span></div>
                             <textarea class="mb-10 ht-150" name="short_description"
                                 placeholder="Nhập mô tả ngắn" tabindex="0" aria-required="true"
-                                required=""></textarea>
-                            <div class="text-tiny">Do not exceed 100 characters when entering the
-                                product name.</div>
+                                required>{{ $product->short_description }}</textarea>
+                            <div class="text-tiny">Không nhập quá 100 kí tự</div>
+                            @error('short_description')
+                                <div class="text-red-600 text-xs mt-1">{{ $message }}</div>
+                            @enderror
                         </fieldset>
 
                         <fieldset class="description">
                             <div class="body-title mb-10">Mô tả <span class="tf-color-1">*</span>
                             </div>
                             <textarea class="mb-10" name="description" placeholder="Nhập mô tả"
-                                tabindex="0" aria-required="true" required=""></textarea>
-                            <div class="text-tiny">Do not exceed 100 characters when entering the
-                                product name.</div>
+                                tabindex="0" aria-required="true" required>{{ $product->description }}</textarea>
+                            <div class="text-tiny">Không nhập quá 100 kí tự</div>
+                            @error('description')
+                                <div class="text-red-600 text-xs mt-1">{{ $message }}</div>
+                            @enderror
                         </fieldset>
                     </div>
                     <div class="wg-box">
                         <fieldset>
                             <div class="body-title">Ảnh sản phẩm <span class="tf-color-1">*</span></div>
                             <div class="upload-image flex-grow">
-                                <div class="item" id="imgpreview" style="display:none">
-                                    <img src="" class="effect8" alt="Preview ảnh" id="previewImg">
+                                <div class="item" id="imgpreview" style="{{ $product->image_url ? '' : 'display:none' }}">
+                                    <img src="{{ $product->image_url }}" class="effect8" alt="Preview ảnh" id="previewImg">
                                 </div>
                                 <div id="upload-file" class="item up-load">
                                     <label class="uploadfile" for="myFile">
@@ -114,37 +126,48 @@
                                     </label>
                                 </div>
                             </div>
+                            @error('image')
+                                <div class="text-red-600 text-xs mt-1">{{ $message }}</div>
+                            @enderror
                         </fieldset>
                         <div class="cols gap22">
                             <fieldset class="name">
-                                <div class="body-title mb-10">Giá tiền <span
-                                        class="tf-color-1">*</span></div>
-                                <input class="mb-10" type="text" placeholder="Nhập giá tiền"
-                                    name="price" tabindex="0" value="" aria-required="true"
-                                    required="">
+                                <div class="body-title mb-10">Giá tiền <span class="tf-color-1">*</span></div>
+                                <input class="mb-10" type="number" min="0" step="0.01" placeholder="Nhập giá tiền"
+                                    name="price" tabindex="0" value="{{ $product->price }}" aria-required="true"
+                                    required>
+                                @error('price')
+                                    <div class="text-red-600 text-xs mt-1">{{ $message }}</div>
+                                @enderror
                             </fieldset>
                             <fieldset class="name">
                                 <div class="body-title mb-10">Số lượng <span class="tf-color-1">*</span>
                                 </div>
-                                <input class="mb-10" type="text" placeholder="Nhập số lượng"
-                                    name="quantity" tabindex="0" value="" aria-required="true"
-                                    required="">
+                                <input class="mb-10" type="number" min="0" step="1" placeholder="Nhập số lượng"
+                                    name="quantity" tabindex="0" value="{{ $product->quantity }}" aria-required="true"
+                                    required>
+                                @error('quantity')
+                                    <div class="text-red-600 text-xs mt-1">{{ $message }}</div>
+                                @enderror
                             </fieldset>
                         </div>
                         <div class="cols gap22">
                             <fieldset class="name">
                                 <div class="body-title mb-10">Trạng thái</div>
                                 <div class="select mb-10">
-                                    <select class="" name="status">
-                                        <option value="stock">Còn hàng</option>
-                                        <option value="out_of_stock">Hết hàng</option>x
-                                        <option value="discontinued">Dừng bàn</option>
+                                    <select class="" name="status" required>
+                                        <option value="stock" {{ $product->status === 'stock' ? 'selected' : '' }}>Còn hàng</option>
+                                        <option value="out_of_stock" {{ $product->status === 'out_of_stock' ? 'selected' : '' }}>Hết hàng</option>
+                                        <option value="discontinued" {{ $product->status === 'discontinued' ? 'selected' : '' }}>Dừng bán</option>
                                     </select>
                                 </div>
+                                @error('status')
+                                    <div class="text-red-600 text-xs mt-1">{{ $message }}</div>
+                                @enderror
                             </fieldset>
                         </div>
                         <div class="cols gap10">
-                            <button class="tf-button w-full" type="submit">Thêm sản phẩm</button>
+                            <button class="tf-button w-full" type="submit">Lưu</button>
                         </div>
                     </div>
                 </form>
