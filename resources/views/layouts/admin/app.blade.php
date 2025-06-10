@@ -206,7 +206,7 @@
                                                         </div>
                                                         <div class="flex items-center justify-between gap20 flex-grow">
                                                             <div class="name">
-                                                                <a href="product-list.html" class="body-text">{{ auth()->user()->name }}</a>
+                                                                <a href="{{route('products.index')}}" class="body-text">{{ auth()->user()->name }}</a>
                                                             </div>
                                                         </div>
                                                     </li>
