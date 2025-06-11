@@ -13,14 +13,17 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        $products = Product::with(['category', 'brand'])->paginate(10);
-        if (request()->has('search')) {
-            $search = request()->input('search');
-            $products->where(function ($query) use ($search) {
-                $query->where('name', 'like', '%' . $search . '%')
-                      ->orWhere('slug', 'like', '%' . $search . '%');
+        $query = Product::with(['category', 'brand']);
+
+        if ($request->has('keyword')) {
+            $search = $request->input('keyword');
+            $query->where(function ($q) use ($search) {
+            $q->where('name', 'like', '%' . $search . '%')
+              ->orWhere('slug', 'like', '%' . $search . '%');
             });
         }
+
+        $products = $query->paginate(10);
 
         return view('admin.products.index', compact('products'));
     }
