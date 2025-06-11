@@ -27,7 +27,7 @@ class ProductController extends Controller
 
     public function show($id)
     {
-        $product = Product::with(['category', 'brand'])->findOrFail($id);
+        $product = Product::findOrFail($id);
         return view('admin.products.show', compact('product'));
     }
 
@@ -102,5 +102,37 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect()->route('products.index')->with('success', 'Xóa sản phẩm thành công!');
+    }
+
+    public function getProductByPage(Request $request)
+    {
+         $products = Product::paginate(12);
+
+        if ($request->ajax()) {
+            $view = view('partials.product-loop', ['products' => $products])->render();
+
+            return response()->json([
+                'html' => $view,
+                'hasMore' => $products->hasMorePages(),
+            ]);
+        }
+
+        return view('welcome', compact('products'));
+    }
+
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+        $products = Product::where('name', 'like', '%' . $search . '%')
+            ->orWhere('slug', 'like', '%' . $search . '%')
+            ->paginate(10);
+
+        return view('admin.products.index', compact('products'));
+    }
+    // get product by slug
+    public function getProductBySlug($slug)
+    {
+        $product = Product::where('slug', $slug)->with(['category', 'brand'])->firstOrFail();
+        return view('client.product.show', compact('product'));
     }
 }
