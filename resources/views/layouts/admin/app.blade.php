@@ -17,9 +17,35 @@
     <link rel="apple-touch-icon-precomposed" href="images/favicon.ico">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/sweetalert.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/custom.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body class="body">
+    @if (session('success'))
+        <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 9999">
+            <div class="toast show align-items-center text-bg-success border-0 " role="alert">
+                <div class="d-flex">
+                    <div class="toast-body " style="font-size: 20px; font-weight: 600;">
+                        {{ session('success') }}
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                </div>
+            </div>
+        </div>
+    @endif
+    @if (session('error'))
+        <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 9999">
+            <div class="toast show align-items-center text-bg-danger border-0" role="alert">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        {{ session('error') }}
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                </div>
+            </div>
+        </div>
+    @endif
+
     <div id="wrapper">
         <div id="page" class="">
             <div class="layout-wrap">
@@ -32,10 +58,7 @@
 
                 <div class="section-menu-left">
                     <div class="box-logo">
-                        <a href="index.html" id="site-logo-inner">
-                            <img class="" id="logo_header" alt="" src="{{ asset('assets/images/logo/logo.png') }}"
-                                data-light="{{ asset('assets/images/logo/logo.png') }}" data-dark="{{ asset('assets/images/logo/logo.png') }}">
-                        </a>
+                        <a class="font-bold font-size-[30px]" href="{{ route('dashboard') }}">SurfsideMedia </a>
                         <div class="button-show-hide">
                             <i class="icon-menu-left"></i>
                         </div>
@@ -67,7 +90,7 @@
                                     </a>
                                 </li>
                                 <li class="menu-item">
-                                    <a href="{{ route('product.index') }}" class="">
+                                    <a href="{{ route('products.index') }}" class="">
                                         <div class="icon"><i class="icon-shopping-cart"></i></div>
                                         <div class="text">Quản lý sản phẩm</div>
                                     </a>
@@ -92,13 +115,6 @@
 
 
                                 <form class="form-search flex-grow">
-                                    <fieldset class="name">
-                                        <input type="text" placeholder="Search here..." class="show-search" name="name"
-                                            tabindex="2" value="" aria-required="true" required="">
-                                    </fieldset>
-                                    <div class="button-submit">
-                                        <button class="" type="submit"><i class="icon-search"></i></button>
-                                    </div>
                                     <div class="box-content-search" id="box-content-search">
                                         <ul class="mb-24">
                                             <li class="mb-14">
@@ -180,7 +196,7 @@
                                                         </div>
                                                         <div class="flex items-center justify-between gap20 flex-grow">
                                                             <div class="name">
-                                                                <a href="product-list.html" class="body-text">{{ auth()->user()->name }}</a>
+                                                                <a href="{{route('products.index')}}" class="body-text">{{ auth()->user()->name }}</a>
                                                             </div>
                                                         </div>
                                                     </li>
@@ -269,8 +285,8 @@
 
     <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('assets/js/bootstrap-select.min.js') }}"></script>   
-    <script src="{{ asset('assets/js/sweetalert.min.js') }}"></script>    
+    <script src="{{ asset('assets/js/bootstrap-select.min.js') }}"></script>
+    <script src="{{ asset('assets/js/sweetalert.min.js') }}"></script>
     <script src="{{ asset('assets/js/apexcharts/apexcharts.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
     {{ $script }}
@@ -372,6 +388,28 @@
             jQuery(window).on("resize", function () { });
         })(jQuery);
     </script>
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const toastSuccessEl = document.getElementById('toast-success');
+            const toastErrorEl = document.getElementById('toast-error');
+
+            // Hàm ẩn toast với hiệu ứng mờ dần
+            function hideToast(toastEl) {
+                if (!toastEl) return;
+                // Bootstrap toast có thể dùng phương thức 'hide', hoặc ta tự ẩn
+                const toast = bootstrap.Toast.getInstance(toastEl.querySelector('.toast'))
+                    || new bootstrap.Toast(toastEl.querySelector('.toast'));
+                toast.hide();
+            }
+
+            // Tự ẩn sau 5 giây (5000 ms)
+            setTimeout(() => {
+                hideToast(toastSuccessEl);
+                hideToast(toastErrorEl);
+            }, 5000);
+        });
+    </script>
+
 </body>
 
 </html>

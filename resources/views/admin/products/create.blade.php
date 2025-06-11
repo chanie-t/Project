@@ -31,9 +31,8 @@
                 </div>
                 <!-- form-add-product -->
                 <form class="tf-section-2 form-add-product" method="POST" enctype="multipart/form-data"
-                    action="http://localhost:8000/admin/product/store">
-                    <input type="hidden" name="_token" value="8LNRTO4LPXHvbK2vgRcXqMeLgqtqNGjzWSNru7Xx"
-                        autocomplete="off">
+                    action="{{ route('products.store') }}">
+                    @csrf
                     <div class="wg-box">
                         <fieldset class="name">
                             <div class="body-title mb-10">Tên sản phẩm <span class="tf-color-1">*</span></div>
@@ -57,10 +56,9 @@
                                 <div class="select">
                                     <select class="" name="category_id">
                                         <option>Chọn danh mục</option>
-                                        <option value="1">Category1</option>
-                                        <option value="2">Category2</option>
-                                        <option value="3">Category3</option>
-                                        <option value="4">Category4</option>
+                                        @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}">{{ $category->name }}</option>)
+                                        @endforeach
 
                                     </select>
                                 </div>
@@ -71,10 +69,9 @@
                                 <div class="select">
                                     <select class="" name="brand_id">
                                         <option>Chọn nhãn hàng</option>
-                                        <option value="1">Brand1</option>
-                                        <option value="2">Brand2</option>
-                                        <option value="3">Brand3</option>
-                                        <option value="4">Brand4</option>
+                                        @foreach ($brands as $brand)
+                                        <option value="{{ $brand->id }}">{{ $brand->name }}</option>)
+                                        @endforeach
 
                                     </select>
                                 </div>
@@ -102,19 +99,17 @@
                     </div>
                     <div class="wg-box">
                         <fieldset>
-                            <div class="body-title">Ảnh sản phẩm <span class="tf-color-1">*</span>
-                            </div>
+                            <div class="body-title">Ảnh sản phẩm <span class="tf-color-1">*</span></div>
                             <div class="upload-image flex-grow">
                                 <div class="item" id="imgpreview" style="display:none">
-                                    <img src="../../../localhost_8000/images/upload/upload-1.png"
-                                        class="effect8" alt="">
+                                    <img src="" class="effect8" alt="Preview ảnh" id="previewImg">
                                 </div>
                                 <div id="upload-file" class="item up-load">
                                     <label class="uploadfile" for="myFile">
                                         <span class="icon">
                                             <i class="icon-upload-cloud"></i>
                                         </span>
-                                        <span class="body-text">Kéo ảnh vào hoặc chọn ảnh 
+                                        <span class="body-text">Kéo ảnh vào hoặc chọn ảnh</span>
                                         <input type="file" id="myFile" name="image" accept="image/*">
                                     </label>
                                 </div>
@@ -125,7 +120,7 @@
                                 <div class="body-title mb-10">Giá tiền <span
                                         class="tf-color-1">*</span></div>
                                 <input class="mb-10" type="text" placeholder="Nhập giá tiền"
-                                    name="regular_price" tabindex="0" value="" aria-required="true"
+                                    name="price" tabindex="0" value="" aria-required="true"
                                     required="">
                             </fieldset>
                             <fieldset class="name">
@@ -140,9 +135,10 @@
                             <fieldset class="name">
                                 <div class="body-title mb-10">Trạng thái</div>
                                 <div class="select mb-10">
-                                    <select class="" name="stock_status">
-                                        <option value="instock">Đang bán</option>
-                                        <option value="outofstock">Hết hàngngf</option>
+                                    <select class="" name="status">
+                                        <option value="stock">Còn hàng</option>
+                                        <option value="out_of_stock">Hết hàng</option>x
+                                        <option value="discontinued">Dừng bàn</option>
                                     </select>
                                 </div>
                             </fieldset>
@@ -176,6 +172,33 @@
                 const name = this.value;
                 const slug = slugify(name);
                 document.getElementById('slug').value = slug;
+            });
+        </script>
+        <script>
+            const inputFile = document.getElementById('myFile');
+            const imgPreviewDiv = document.getElementById('imgpreview');
+            const previewImg = document.getElementById('previewImg');
+            const uploadFileDiv = document.getElementById('upload-file');
+            const containerUploadfile = document.querySelector('.upload-image.flex-grow');
+
+            inputFile.addEventListener('change', function () {
+                const file = this.files[0];
+
+                if (file) {
+                    const reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        previewImg.src = e.target.result;
+                        imgPreviewDiv.style.display = 'block';
+                        uploadFileDiv.querySelector('.body-text').textContent = 'Thay đổi ảnh';
+                        imagePreviewDiv.classList.add('effect8');
+                    };
+
+                    reader.readAsDataURL(file);
+                } else {
+                    previewImg.src = '';
+                    imgPreviewDiv.style.display = 'none';
+                }
             });
         </script>
     </x-slot>

@@ -4,10 +4,10 @@
                         <div class="main-content-inner">
                             <div class="main-content-wrap">
                                 <div class="flex items-center flex-wrap justify-between gap20 mb-27">
-                                    <h3>Brand infomation</h3>
+                                    <h3>Thêm mới danh mục</h3>
                                     <ul class="breadcrumbs flex items-center flex-wrap justify-start gap10">
                                         <li>
-                                            <a href="#">
+                                            <a href="{{route('dashboard')}}">
                                                 <div class="text-tiny">Dashboard</div>
                                             </a>
                                         </li>
@@ -15,7 +15,7 @@
                                             <i class="icon-chevron-right"></i>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <a href="{{route('brands.index')}}">
                                                 <div class="text-tiny">Brands</div>
                                             </a>
                                         </li>
@@ -29,16 +29,16 @@
                                 </div>
                                 <!-- new-category -->
                                 <div class="wg-box">
-                                    <form class="form-new-product form-style-1" action="#" method="POST"
+                                    <form class="form-new-product form-style-1" action="{{route('brands.store')}}" method="POST"
                                         enctype="multipart/form-data">
                                         <fieldset class="name">
-                                            <div class="body-title">Brand Name <span class="tf-color-1">*</span></div>
-                                            <input class="flex-grow" type="text" placeholder="Brand name" name="name"
-                                                tabindex="0" value="" aria-required="true" required="">
+                                            <div class="body-title">Tên danh mục <span class="tf-color-1">*</span></div>
+                                           <input id="name" class="flex-grow" type="text" placeholder="Nhập tên danh mục" name="name"
+    tabindex="0" value="" aria-required="true" required="">
                                         </fieldset>
                                         <fieldset class="name">
-                                            <div class="body-title">Brand Slug <span class="tf-color-1">*</span></div>
-                                            <input class="flex-grow" type="text" placeholder="Brand Slug" name="slug"
+                                            <div class="body-title">Slug <span class="tf-color-1">*</span></div>
+                                            <input id="slug" class="flex-grow" type="text" placeholder="Nhập Slug" name="slug"
                                                 tabindex="0" value="" aria-required="true" required="">
                                         </fieldset>
                                         <fieldset>
@@ -63,7 +63,7 @@
 
                                         <div class="bot">
                                             <div></div>
-                                            <button class="tf-button w208" type="submit">Save</button>
+                                            <button class="tf-button w208" type="submit">Tạo</button>
                                         </div>
                                     </form>
                                 </div>

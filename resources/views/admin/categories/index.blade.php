@@ -1,6 +1,7 @@
 <x-admin.admin-layout>
     <x-slot name="mainContent">
         <div class="main-content-inner">
+
     <div class="main-content-wrap">
                                 <div class="flex items-center flex-wrap justify-between gap20 mb-27">
                                     <h3>Categories</h3>
@@ -22,59 +23,61 @@
                                 <div class="wg-box">
                                     <div class="flex items-center justify-between gap10 flex-wrap">
                                         <div class="wg-filter flex-grow">
-                                            <form class="form-search">
+                                            <form class="form-search" action="{{ route('categories.index') }}" method="GET">
                                                 <fieldset class="name">
-                                                    <input type="text" placeholder="Search here..." class="" name="name"
-                                                        tabindex="2" value="" aria-required="true" required="">
+                                                    <input type="text" placeholder="Search here..." class="" name="keyword"
+                                                        tabindex="2" value="{{ request('keyword') }}" aria-required="true" >
                                                 </fieldset>
                                                 <div class="button-submit">
                                                     <button class="" type="submit"><i class="icon-search"></i></button>
                                                 </div>
                                             </form>
                                         </div>
-                                        <a class="tf-button style-1 w208" href="add-category.html"><i
-                                                class="icon-plus"></i>Add new</a>
+                                        <a class="tf-button style-1 w208" href="{{route('categories.create')}}"><i
+                                                class="icon-plus"></i>Thêm danh mục</a>
                                     </div>
                                     <div class="wg-table table-all-user">
                                         <table class="table table-striped table-bordered">
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>Name</th>
+                                                    <th>Tên danh mục</th>
                                                     <th>Slug</th>
-                                                    <th>Products</th>
-                                                    <th>Action</th>
+                                                    <th>Mô tả</th>
+                                                    <th>Thao tác</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                @foreach($categories as $category)
                                                 <tr>
-                                                    <td>4</td>
+                                                    <td>{{$loop->iteration}}</td>
                                                     <td class="pname">
-                                                        <div class="image">
-                                                            <img src="1718066463.html" alt="" class="image">
-                                                        </div>
                                                         <div class="name">
-                                                            <a href="#" class="body-title-2">Category4</a>
+                                                            <a href="#" class="body-title-2">{{$category->name}}</a>
                                                         </div>
                                                     </td>
-                                                    <td>category4</td>
-                                                    <td><a href="#" target="_blank">2</a></td>
+                                                    <td>{{$category->slug}}</td>
+                                                    <td><a href="#" target="_blank">{{$category->description}}</a></td>
                                                     <td>
                                                         <div class="list-icon-function">
-                                                            <a href="#">
-                                                                <div class="item edit">
-                                                                    <i class="icon-edit-3"></i>
-                                                                </div>
+                                                            <!-- Nút sửa -->
+                                                            <a href="{{ route('categories.edit', $category->id) }}" class="action-icon" title="Chỉnh sửa">
+                                                                <i class="icon-edit-3"></i>
                                                             </a>
-                                                            <form action="#" method="POST">
-                                                                <div class="item text-danger delete">
+
+                                                            <!-- Nút xóa -->
+                                                            <form action="{{ route('categories.destroy', $category->id) }}" method="POST" class="p-0" onsubmit="return confirm('Bạn có chắc muốn xóa?')" style="display: inline;">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="action-icon text-danger p-2" title="Xóa">
                                                                     <i class="icon-trash-2"></i>
-                                                                </div>
+                                                                </button>
                                                             </form>
+
                                                         </div>
                                                     </td>
                                                 </tr>
-
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>
@@ -87,6 +90,6 @@
 </div>
     </x-slot>
     <x-slot name="script">
-        
+
     </x-slot>
 </x-admin.admin-layout>
