@@ -2,7 +2,7 @@
             <div class="product-card product-card_style3 mb-3 mb-md-4 mb-xxl-5">
               <div class="pc__img-wrapper">
                 <a href="{{route('client.products.show', $product->slug)}}" class="pc__img-link">
-                  <img loading="lazy" src="{{$product->image}}" width="330" height="400"
+                  <img loading="lazy" src="{{$product->image_url}}" width="330" height="400"
                     alt="{{$product->name}}" class="pc__img">
                 </a>
               </div>
