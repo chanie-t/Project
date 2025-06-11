@@ -1,67 +1,119 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel 12 Product Management System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Dự án này là một hệ thống quản lý sản phẩm được xây dựng bằng Laravel 12, sử dụng MySQL làm cơ sở dữ liệu, và tích hợp các chức năng cơ bản như:
 
+- Quản lý sản phẩm (CRUD)
+- Quản lý danh mục (CRUD)
+- Quản lý nhãn hàng (CRUD)
+- Tìm kiếm sản phẩm
+- Phân quyền người dùng: Admin & Client
+- Xác thực người dùng sử dụng Laravel Breeze
+- Lazy load
+---
 
-## Setting
+## 🛠️ Công nghệ sử dụng
 
-- git clone 
-- composer install 
+- **Framework**: Laravel 12
+- **Cơ sở dữ liệu**: MySQL
+- **Xác thực**: Laravel Breeze
+- **Quản lý gói**: Composer, NPM
+- **Frontend**: Blade / Tailwind CSS (Breeze mặc định)
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Định nghĩa Các bảng
+### Bảng: categories
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+| Tên Cột       | Kiểu Dữ Liệu | Ràng Buộc             | Mô Tả                       |
+|---------------|--------------|------------------------|-----------------------------|
+| id            | BIGINT       | PRIMARY KEY, AUTO_INCREMENT | Khóa chính, tự tăng      |
+| name          | STRING       | NOT NULL               | Tên                        |
+| slug          | STRING       | UNIQUE, NOT NULL       | Chuỗi định danh duy nhất  |
+| description   | TEXT         | NULLABLE               | Mô tả (có thể để trống)    |
+| created_at    | TIMESTAMP    | NULLABLE               | Thời gian tạo              |
+| updated_at    | TIMESTAMP    | NULLABLE               | Thời gian cập nhật         |
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Bảng: brands
 
-## Learning Laravel
+| Tên Cột       | Kiểu Dữ Liệu | Ràng Buộc             | Mô Tả                       |
+|---------------|--------------|------------------------|-----------------------------|
+| id            | BIGINT       | PRIMARY KEY, AUTO_INCREMENT | Khóa chính, tự tăng      |
+| name          | STRING       | NOT NULL               | Tên                        |
+| slug          | STRING       | UNIQUE, NOT NULL       | Chuỗi định danh duy nhất  |
+| description   | TEXT         | NULLABLE               | Mô tả (có thể để trống)    |
+| created_at    | TIMESTAMP    | NULLABLE               | Thời gian tạo              |
+| updated_at    | TIMESTAMP    | NULLABLE               | Thời gian cập nhật         |
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Bảng: products
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+| Tên Cột            | Kiểu Dữ Liệu     | Ràng Buộc                                       | Mô Tả                          |
+|--------------------|------------------|--------------------------------------------------|--------------------------------|
+| id                 | BIGINT           | PRIMARY KEY, AUTO_INCREMENT                     | Khóa chính                    |
+| name               | STRING           | NOT NULL                                        | Tên sản phẩm                  |
+| slug               | STRING           | UNIQUE, NOT NULL                                | Slug để SEO                   |
+| short_description  | TEXT             | NULLABLE                                        | Mô tả ngắn                    |
+| description        | LONGTEXT         | NULLABLE                                        | Mô tả chi tiết                |
+| category_id        | UNSIGNED BIGINT  | FOREIGN KEY → categories(id), ON DELETE CASCADE | Danh mục                      |
+| brand_id           | UNSIGNED BIGINT  | FOREIGN KEY → brands(id), ON DELETE CASCADE     | Nhãn hàng                     |
+| image              | STRING           | NULLABLE                                        | Ảnh sản phẩm                  |
+| price              | DECIMAL(10, 2)   | DEFAULT 0.00                                    | Giá tiền                      |
+| quantity           | INTEGER          | DEFAULT 0                                       | Số lượng                      |
+| status             | ENUM             | DEFAULT 'stock'                                 | Trạng thái: `stock`, `out_of_stock`,`discontinued` |
+| created_at         | TIMESTAMP        | NULLABLE                                        | Thời gian tạo                 |
+| updated_at         | TIMESTAMP        | NULLABLE                                        | Thời gian cập nhật            |
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Bảng: users
 
-## Laravel Sponsors
+| Tên Cột             | Kiểu Dữ Liệu     | Ràng Buộc               | Mô Tả                                         |
+|---------------------|------------------|--------------------------|-----------------------------------------------|
+| id                  | BIGINT           | PRIMARY KEY, AUTO_INCREMENT | Khóa chính                                |
+| name                | STRING           | NOT NULL                 | Tên người dùng                               |
+| email               | STRING           | UNIQUE, NOT NULL         | Địa chỉ email                                |
+| email_verified_at   | TIMESTAMP        | NULLABLE                 | Thời gian xác minh email                     |
+| password            | STRING           | NOT NULL                 | Mật khẩu đã được mã hóa                      |
+| remember_token      | STRING           | NULLABLE                 | Token để ghi nhớ đăng nhập                   |
+| role                | ENUM             | DEFAULT 'client'         | Vai trò: `admin`, `client`                   |
+| created_at          | TIMESTAMP        | NULLABLE                 | Thời gian tạo                                |
+| updated_at          | TIMESTAMP        | NULLABLE                 | Thời gian cập nhật                           |
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
+## ⚙️ Cài đặt
 
-### Premium Partners
+```bash
+# Clone dự án
+git clone https://github.com/chanie-t/Project.git
+cd Project.git
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+# Cài đặt các gói PHP
+composer install
 
-## Contributing
+# Cài đặt các gói Node (nếu dùng frontend Breeze)
+npm install
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+# Tạo file cấu hình
+cp .env.example .env
 
-## Code of Conduct
+# Cấu hình thông tin database trong file .env
+#DB_CONNECTION=mysql
+#DB_HOST=
+#DB_PORT=
+#DB_DATABASE=
+#DB_USERNAME=
+#DB_PASSWORD=
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# Tạo key ứng dụng
+php artisan key:generate
 
-## Security Vulnerabilities
+# Chạy migration và seed dữ liệu (nếu có)
+php artisan migrate
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+#Có thể hạy seeder để fake dữ liệu (không áp dụng với môi trường production)
+php artisan db:seed
 
-## License
+# Khởi động server
+php artisan serve
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# Chạy npm 
+npm run dev
+
+```
