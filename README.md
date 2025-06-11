@@ -76,6 +76,10 @@ Dự án này là một hệ thống quản lý sản phẩm được xây dựn
 | created_at          | TIMESTAMP        | NULLABLE                 | Thời gian tạo                                |
 | updated_at          | TIMESTAMP        | NULLABLE                 | Thời gian cập nhật                           |
 
+### Quan hệ giữa các bảng sử dụng trong project
+- products - brands : n -1
+- products - categories: n -1
+
 ---
 ## ⚙️ Cài đặt
 
