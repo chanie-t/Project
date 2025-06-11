@@ -7,9 +7,19 @@ use Illuminate\Http\Request;
 
 class BrandController extends Controller
 {
-   public function index()
+   public function index(Request $request)
     {
-        $brands = Brand::all();
+        $query = Brand::query();
+
+
+        if ($request->has('keyword')) {
+            $search = $request->input('keyword');
+            $query->where(function ($q) use ($search) {
+            $q->where('name', 'like', '%' . $search . '%')
+              ->orWhere('slug', 'like', '%' . $search . '%');
+            });
+        }
+        $brands = $query->get();
 
         return view('admin.brands.index', compact('brands'));
     }

@@ -23,9 +23,9 @@
                                     <div class="flex items-center justify-between gap10 flex-wrap">
                                         <div class="wg-filter flex-grow">
                                             <form class="form-search">
-                                                <fieldset class="name">
-                                                    <input type="text" placeholder="Search here..." class="" name="name"
-                                                        tabindex="2" value="" aria-required="true" required="">
+                                                <fieldset class="name" action="{{ route('brands.index') }}" method="GET">
+                                                    <input type="text" placeholder="Search here..." class="" name="keyword"
+                                                        tabindex="2" value="{{request('keyword')}}" aria-required="true" >
                                                 </fieldset>
                                                 <div class="button-submit">
                                                     <button class="" type="submit"><i class="icon-search"></i></button>
