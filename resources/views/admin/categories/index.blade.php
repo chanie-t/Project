@@ -23,10 +23,10 @@
                                 <div class="wg-box">
                                     <div class="flex items-center justify-between gap10 flex-wrap">
                                         <div class="wg-filter flex-grow">
-                                            <form class="form-search">
+                                            <form class="form-search" action="{{ route('categories.index') }}" method="GET">
                                                 <fieldset class="name">
-                                                    <input type="text" placeholder="Search here..." class="" name="name"
-                                                        tabindex="2" value="" aria-required="true" required="">
+                                                    <input type="text" placeholder="Search here..." class="" name="keyword"
+                                                        tabindex="2" value="{{ request('keyword') }}" aria-required="true" >
                                                 </fieldset>
                                                 <div class="button-submit">
                                                     <button class="" type="submit"><i class="icon-search"></i></button>
@@ -90,6 +90,6 @@
 </div>
     </x-slot>
     <x-slot name="script">
-        
+
     </x-slot>
 </x-admin.admin-layout>

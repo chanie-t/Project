@@ -2,17 +2,22 @@
 
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
+const PRODUCT_PER_PAGE = 12;
 Route::get('/', function () {
-    return view('welcome');
+    $products = Product::with('category', 'brand')->paginate(PRODUCT_PER_PAGE);
+    return view('welcome',compact('products'));
 }) ->name('welcome') ;
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified','role.check'])->name('dashboard');
+Route::get('/coming-soon', function () {
+    return view('coming-soon');
+})->name('coming-soon');
+Route::get('/api/products',[ProductController::class, 'getProductByPage'])->name('api.products');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -20,6 +25,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::middleware('role.check')->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::prefix('products')->group(function () {
             Route::get('/', [ProductController::class, 'index'])->name('products.index');
             Route::get('/create', [ProductController::class, 'create'])->name('products.create');
@@ -49,5 +55,6 @@ Route::middleware('auth')->group(function () {
         });
     });
 });
-
+Route::get('/products/{slug}', [ProductController::class, 'getProductBySlug'])->name('client.products.show');
 require __DIR__.'/auth.php';
+

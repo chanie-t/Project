@@ -58,10 +58,7 @@
 
                 <div class="section-menu-left">
                     <div class="box-logo">
-                        <a href="index.html" id="site-logo-inner">
-                            <img class="" id="logo_header" alt="" src="{{ asset('assets/images/logo/logo.png') }}"
-                                data-light="{{ asset('assets/images/logo/logo.png') }}" data-dark="{{ asset('assets/images/logo/logo.png') }}">
-                        </a>
+                        <a class="font-bold font-size-[30px]" href="{{ route('dashboard') }}">SurfsideMedia </a>
                         <div class="button-show-hide">
                             <i class="icon-menu-left"></i>
                         </div>
@@ -118,13 +115,6 @@
 
 
                                 <form class="form-search flex-grow">
-                                    <fieldset class="name">
-                                        <input type="text" placeholder="Search here..." class="show-search" name="name"
-                                            tabindex="2" value="" aria-required="true" required="">
-                                    </fieldset>
-                                    <div class="button-submit">
-                                        <button class="" type="submit"><i class="icon-search"></i></button>
-                                    </div>
                                     <div class="box-content-search" id="box-content-search">
                                         <ul class="mb-24">
                                             <li class="mb-14">

@@ -39,6 +39,9 @@ class Product extends Model
 
     public function getImageUrlAttribute()
     {
+        if (strpos($this->image, 'https://') === 0 || strpos($this->image, 'http://') === 0) {
+            return $this->image;
+        }
         return asset(Storage::url($this->image));
     }
 
