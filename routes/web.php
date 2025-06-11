@@ -14,6 +14,9 @@ Route::get('/', function () {
     return view('welcome',compact('products'));
 }) ->name('welcome') ;
 
+Route::get('/coming-soon', function () {
+    return view('coming-soon');
+})->name('coming-soon');
 Route::get('/api/products',[ProductController::class, 'getProductByPage'])->name('api.products');
 
 Route::middleware('auth')->group(function () {
