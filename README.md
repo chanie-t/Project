@@ -423,25 +423,34 @@ https://chanie-t.github.io/Project/
 # Một số hình ảnh chức năng chính
 ## Xác thực người dùng
 Trang đăng nhập
+
 ![image](https://github.com/user-attachments/assets/ff7cd06b-4d8b-4db2-a9c3-769372315975)
 Trang đăng ký
+
 ![image](https://github.com/user-attachments/assets/57875f94-9511-4236-bb13-f49d0f9a20c5)
 ## Trang chính
+
 ![image](https://github.com/user-attachments/assets/d0146771-9931-4d93-8e7d-9bf14a73f42b)
 ## CRUD Products
+
 ![image](https://github.com/user-attachments/assets/dbb6c939-2eae-48a8-aabe-61ffac57172c)
 Thêm sản phẩm
+
 ![image](https://github.com/user-attachments/assets/6fd9acf0-48ff-404d-bf7b-e915782cd119)
 Xem , sửa và xóa :
+
 ![image](https://github.com/user-attachments/assets/82518721-7981-4649-a296-48439209eef1)
 
 ## CRUD Categories
 ![image](https://github.com/user-attachments/assets/e118003d-65e9-45f3-8bbb-72aff9229f06)
 Thêm mới:
+
 ![image](https://github.com/user-attachments/assets/78eca0c7-47c5-47dd-8309-60f3f9dbbce4)
 Sửa và xóa:
+
 ![image](https://github.com/user-attachments/assets/f9ba8ad6-237a-40df-8a53-b48422ae1103)
 Xem sản phẩm:
+
 ![image](https://github.com/user-attachments/assets/501993e1-31b4-4760-9a54-a3bb6d12520a)
 
 
@@ -449,8 +458,10 @@ Xem sản phẩm:
 ## CRUD Brands
 ![image](https://github.com/user-attachments/assets/233373bc-1863-47db-acb3-1683ba1f70d8)
 Thêm mới:
+
 ![image](https://github.com/user-attachments/assets/48d5584b-6f64-44dc-b944-3d857066f801)
 sửa và xóa:
+
 ![image](https://github.com/user-attachments/assets/e721d089-e915-4dfa-a0c1-849fffc03f3f)
 
 
