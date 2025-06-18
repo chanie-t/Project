@@ -414,6 +414,11 @@ Cấu trúc chính của view
 ![image](https://github.com/user-attachments/assets/a0108521-3ac9-4a45-8c98-4e9216122915)
 
 # Security Setup
+<strong>
+    Luôn sử dụng phiên bản Laravel mới nhất để đảm bảo ứng dụng nhận được các bản vá bảo mật, cải tiến hiệu năng và các tính năng mới nhất từ cộng đồng phát triển
+</strong>
+![image](https://github.com/user-attachments/assets/92d2377c-6fec-46cc-8e99-13de409f1fe7)
+
 
 # Link
 ## Github link
