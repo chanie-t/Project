@@ -1,123 +1,418 @@
-# Laravel 12 Product Management System
+<h1 align="center"><strong>Project: Website bán hàng điện tử</strong>  </h1>
 
-Dự án này là một hệ thống quản lý sản phẩm được xây dựng bằng Laravel 12, sử dụng MySQL làm cơ sở dữ liệu, và tích hợp các chức năng cơ bản như:
+<h2>Thông tin cá nhân</h2>
 
-- Quản lý sản phẩm (CRUD)
-- Quản lý danh mục (CRUD)
-- Quản lý nhãn hàng (CRUD)
-- Tìm kiếm sản phẩm
-- Phân quyền người dùng: Admin & Client
-- Xác thực người dùng sử dụng Laravel Breeze
-- Lazy load
----
+👤 **Họ tên:** Nguyễn Thùy Trang 
+🎓 **Mã sinh viên:** 23010487
 
-## 🛠️ Công nghệ sử dụng
+## 📝 Mô tả dự án
 
-- **Framework**: Laravel 12
-- **Cơ sở dữ liệu**: MySQL
-- **Xác thực**: Laravel Breeze
-- **Quản lý gói**: Composer, NPM
-- **Frontend**: Blade / Tailwind CSS (Breeze mặc định)
+Website bán hàng điện tử, cho phép người quản lý thêm, xóa, phân loại sản phẩm.  
+Dự án sử dụng Laravel, MySQL.
 
----
+## 🧰 Công nghệ sử dụng
 
-## Định nghĩa Các bảng
-### Bảng: categories
+-   PHP (Laravel Framework)
+-   AJAX (Asynchronous JavaScript and XML)
+-   Laravel Breeze
+-   MySQL (Aiven Cloud)
+-   Blade Template
+-   Tailwind CSS (do Breeze tích hợp sẵn)
 
-| Tên Cột       | Kiểu Dữ Liệu | Ràng Buộc             | Mô Tả                       |
-|---------------|--------------|------------------------|-----------------------------|
-| id            | BIGINT       | PRIMARY KEY, AUTO_INCREMENT | Khóa chính, tự tăng      |
-| name          | STRING       | NOT NULL               | Tên                        |
-| slug          | STRING       | UNIQUE, NOT NULL       | Chuỗi định danh duy nhất  |
-| description   | TEXT         | NULLABLE               | Mô tả (có thể để trống)    |
-| created_at    | TIMESTAMP    | NULLABLE               | Thời gian tạo              |
-| updated_at    | TIMESTAMP    | NULLABLE               | Thời gian cập nhật         |
-
-### Bảng: brands
-
-| Tên Cột       | Kiểu Dữ Liệu | Ràng Buộc             | Mô Tả                       |
-|---------------|--------------|------------------------|-----------------------------|
-| id            | BIGINT       | PRIMARY KEY, AUTO_INCREMENT | Khóa chính, tự tăng      |
-| name          | STRING       | NOT NULL               | Tên                        |
-| slug          | STRING       | UNIQUE, NOT NULL       | Chuỗi định danh duy nhất  |
-| description   | TEXT         | NULLABLE               | Mô tả (có thể để trống)    |
-| created_at    | TIMESTAMP    | NULLABLE               | Thời gian tạo              |
-| updated_at    | TIMESTAMP    | NULLABLE               | Thời gian cập nhật         |
-
-### Bảng: products
-
-| Tên Cột            | Kiểu Dữ Liệu     | Ràng Buộc                                       | Mô Tả                          |
-|--------------------|------------------|--------------------------------------------------|--------------------------------|
-| id                 | BIGINT           | PRIMARY KEY, AUTO_INCREMENT                     | Khóa chính                    |
-| name               | STRING           | NOT NULL                                        | Tên sản phẩm                  |
-| slug               | STRING           | UNIQUE, NOT NULL                                | Slug để SEO                   |
-| short_description  | TEXT             | NULLABLE                                        | Mô tả ngắn                    |
-| description        | LONGTEXT         | NULLABLE                                        | Mô tả chi tiết                |
-| category_id        | UNSIGNED BIGINT  | FOREIGN KEY → categories(id), ON DELETE CASCADE | Danh mục                      |
-| brand_id           | UNSIGNED BIGINT  | FOREIGN KEY → brands(id), ON DELETE CASCADE     | Nhãn hàng                     |
-| image              | STRING           | NULLABLE                                        | Ảnh sản phẩm                  |
-| price              | DECIMAL(10, 2)   | DEFAULT 0.00                                    | Giá tiền                      |
-| quantity           | INTEGER          | DEFAULT 0                                       | Số lượng                      |
-| status             | ENUM             | DEFAULT 'stock'                                 | Trạng thái: `stock`, `out_of_stock`,`discontinued` |
-| created_at         | TIMESTAMP        | NULLABLE                                        | Thời gian tạo                 |
-| updated_at         | TIMESTAMP        | NULLABLE                                        | Thời gian cập nhật            |
-
-### Bảng: users
-
-| Tên Cột             | Kiểu Dữ Liệu     | Ràng Buộc               | Mô Tả                                         |
-|---------------------|------------------|--------------------------|-----------------------------------------------|
-| id                  | BIGINT           | PRIMARY KEY, AUTO_INCREMENT | Khóa chính                                |
-| name                | STRING           | NOT NULL                 | Tên người dùng                               |
-| email               | STRING           | UNIQUE, NOT NULL         | Địa chỉ email                                |
-| email_verified_at   | TIMESTAMP        | NULLABLE                 | Thời gian xác minh email                     |
-| password            | STRING           | NOT NULL                 | Mật khẩu đã được mã hóa                      |
-| remember_token      | STRING           | NULLABLE                 | Token để ghi nhớ đăng nhập                   |
-| role                | ENUM             | DEFAULT 'client'         | Vai trò: `admin`, `client`                   |
-| created_at          | TIMESTAMP        | NULLABLE                 | Thời gian tạo                                |
-| updated_at          | TIMESTAMP        | NULLABLE                 | Thời gian cập nhật                           |
-
-### Quan hệ giữa các bảng sử dụng trong project
-- products - brands : n -1
-- products - categories: n -1
-
----
-## ⚙️ Cài đặt
+## 🚀 Cài đặt & Chạy thử
 
 ```bash
-# Clone dự án
-git clone https://github.com/chanie-t/Project.git
-cd Project.git
-
-# Cài đặt các gói PHP
+git: https://github.com/chanie-t/Project
 composer install
-
-# Cài đặt các gói Node (nếu dùng frontend Breeze)
 npm install
-
-# Tạo file cấu hình
 cp .env.example .env
-
-# Cấu hình thông tin database trong file .env
-#DB_CONNECTION=mysql
-#DB_HOST=
-#DB_PORT=
-#DB_DATABASE=
-#DB_USERNAME=
-#DB_PASSWORD=
-
-# Tạo key ứng dụng
 php artisan key:generate
-
-# Chạy migration và seed dữ liệu (nếu có)
 php artisan migrate
-
-#Có thể hạy seeder để fake dữ liệu (không áp dụng với môi trường production)
-php artisan db:seed
-
-# Khởi động server
-php artisan serve
-
-# Chạy npm 
-npm run dev
-
 ```
+# Sơ đồ khối
+
+![image](https://github.com/user-attachments/assets/4ad00187-be78-439c-b068-103059e74e83)
+
+## ⚙️Sơ đồ chức năng
+![image](https://github.com/user-attachments/assets/f13ca2c9-b702-4dad-9a3c-c0598721f8fd)
+
+## 🧠Sơ đồ thuật toán
+
+
+# Một số Code chính minh họa
+## Model
+*Product Model: 
+        class Product extends Model
+{
+     use HasFactory;
+
+    // Các trường được phép gán hàng loạt
+    protected $fillable = [
+        'name',
+        'slug',
+        'price',
+        'short_description',
+        'description',
+        'category_id',
+        'brand_id',
+        'status',
+        'image',
+        'quantity'
+    ];
+
+    /**
+     * Quan hệ product thuộc về category
+     */
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
+    }
+
+    public function getImageUrlAttribute()
+    {
+        if (strpos($this->image, 'https://') === 0 || strpos($this->image, 'http://') === 0) {
+            return $this->image;
+        }
+        return asset(Storage::url($this->image));
+    }
+
+}
+
+*Brands model:
+        class Brand extends Model
+{
+    use HasFactory;
+    protected $fillable = [
+        'name',
+        'slug',
+        'description',
+    ];
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+}
+
+
+*Category model:
+        class Category extends Model
+{
+    use HasFactory;
+    protected $fillable = [
+        'name',
+        'slug',
+        'description',
+    ];
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+}
+
+
+## Controller
+*ProductController 
+        class ProductController extends Controller
+{
+    public function index(Request $request)
+    {
+        $query = Product::with(['category', 'brand']);
+
+        if ($request->has('keyword')) {
+            $search = $request->input('keyword');
+            $query->where(function ($q) use ($search) {
+            $q->where('name', 'like', '%' . $search . '%')
+              ->orWhere('slug', 'like', '%' . $search . '%');
+            });
+        }
+
+        $products = $query->paginate(10);
+
+        return view('admin.products.index', compact('products'));
+    }
+
+    public function show($id)
+    {
+        $product = Product::findOrFail($id);
+        return view('admin.products.show', compact('product'));
+    }
+
+    public function create()
+    {
+        $categories = Category::all();
+        $brands = Brand::all();
+        return view('admin.products.create', compact('categories', 'brands'));
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:100',
+            'slug' => 'nullable|string|max:100|unique:products,slug,' . $request->id,
+            'price' => 'required|numeric|min:0',
+            'short_description' => 'required|max:200',
+            'description' => 'nullable|string',
+            'category_id' => 'required|exists:categories,id',
+            'brand_id' => 'required|exists:brands,id',
+            'image' => 'nullable|image|mimes:jpeg,jpg,png,gif,bmp,svg,webp|max:2048',
+            'quantity' => 'min:0'
+        ]);
+
+         if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('products', 'public');
+            $validated['image'] = $path;
+        }
+        Product::create($validated);
+
+        return redirect()->route('products.index')->with('success', 'Tạo sản phẩm thành công!');
+    }
+
+    public function edit(Request $request, $id)
+    {
+        $product = Product::findOrFail($id);
+        $categories = Category::all();
+        $brands = Brand::all();
+        return view('admin.products.edit', compact('product', 'categories', 'brands'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $product = Product::findOrFail($id);
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:100',
+            'slug' => 'nullable|string|max:100|unique:products,slug,' . $product->id,
+            'price' => 'required|numeric|min:0',
+            'short_description' => 'required|max:200',
+            'description' => 'nullable|string',
+            'category_id' => 'required|exists:categories,id',
+            'brand_id' => 'required|exists:brands,id',
+            'image' => 'nullable|image|max:2048', // 2MB
+            'quantity' => 'min:0',
+            'status' => 'in:stock,out_of_stock,discontinued'
+        ]);
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('products', 'public');
+            $validated['image'] = $path;
+        }
+
+        $product->update($validated);
+
+        return redirect()->route('products.index')->with('success', 'Cập nhật sản phẩm thành công!');
+    }
+
+    public function destroy($id)
+    {
+        $product = Product::findOrFail($id);
+        $product->delete();
+
+        return redirect()->route('products.index')->with('success', 'Xóa sản phẩm thành công!');
+    }
+
+    public function getProductByPage(Request $request)
+    {
+         $products = Product::paginate(12);
+
+        if ($request->ajax()) {
+            $view = view('partials.product-loop', ['products' => $products])->render();
+
+            return response()->json([
+                'html' => $view,
+                'hasMore' => $products->hasMorePages(),
+            ]);
+        }
+
+        return view('welcome', compact('products'));
+    }
+
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+        $products = Product::where('name', 'like', '%' . $search . '%')
+            ->orWhere('slug', 'like', '%' . $search . '%')
+            ->paginate(10);
+
+        return view('admin.products.index', compact('products'));
+    }
+    // get product by slug
+    public function getProductBySlug($slug)
+    {
+        $product = Product::where('slug', $slug)->with(['category', 'brand'])->firstOrFail();
+        return view('client.product.show', compact('product'));
+    }
+}
+
+*BrandsController:
+        class BrandController extends Controller
+{
+   public function index(Request $request)
+    {
+        $query = Brand::query();
+
+
+        if ($request->has('keyword')) {
+            $search = $request->input('keyword');
+            $query->where(function ($q) use ($search) {
+            $q->where('name', 'like', '%' . $search . '%')
+              ->orWhere('slug', 'like', '%' . $search . '%');
+            });
+        }
+        $brands = $query->get();
+
+        return view('admin.brands.index', compact('brands'));
+    }
+
+    public function create()
+    {
+        return view('admin.brands.create');
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:100',
+            'slug' => 'nullable|string|max:100|unique:brands,slug',
+            'description' => 'nullable|string',
+        ]);
+
+        Brand::create($validated);
+        return redirect()->route('brands.index')->with('success', 'Tạo thương hiệu thành công!');
+    }
+
+    public function edit($id)
+    {
+        $brand = Brand::findOrFail($id);
+        return view('admin.brands.edit', compact('brand'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $brand = Brand::findOrFail($id);
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:100',
+            'slug' => 'nullable|string|max:100|unique:brands,slug,' . $brand->id,
+            'description' => 'nullable|string',
+        ]);
+
+        $brand->update($validated);
+
+        return redirect()->route('brands.index')->with('success', 'Cập nhật thương hiệu thành công!');
+    }
+
+    public function destroy($id)
+    {
+        $brand = Brand::findOrFail($id);
+        $brand->delete();
+
+        return redirect()->route('brands.index')->with('success', 'Xóa thương hiệu thành công!');
+    }
+}
+
+
+*CategoryController:
+        class CategoryController extends Controller
+{
+    public function index(Request $request)
+    {
+        $query = Category::query();
+
+        if ($request->has('keyword')) {
+            $search = $request->input('keyword');
+            $query->where(function ($q) use ($search) {
+            $q->where('name', 'like', '%' . $search . '%')
+              ->orWhere('slug', 'like', '%' . $search . '%');
+            });
+        }
+        $categories = $query->paginate(10);
+
+        return view('admin.categories.index', compact('categories'));
+    }
+
+    public function create()
+    {
+        return view('admin.categories.create');
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:100',
+            'slug' => 'nullable|string|max:100|unique:categories,slug',
+            'description' => 'nullable|string',
+        ]);
+
+        Category::create($validated);
+
+        return redirect()->route('categories.index')->with('success', 'Tạo danh mục thành công!');
+    }
+
+    public function edit($id)
+    {
+        $category = Category::findOrFail($id);
+        return view('admin.categories.edit', compact('category'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $category = Category::findOrFail($id);
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:100',
+            'slug' => 'nullable|string|max:100|unique:categories,slug,' . $category->id,
+            'description' => 'nullable|string',
+        ]);
+
+        $category->update($validated);
+
+        return redirect()->route('categories.index')->with('success', 'Cập nhật danh mục thành công!');
+    }
+
+    public function destroy($id)
+    {
+        $category = Category::findOrFail($id);
+        $category->delete();
+
+        return redirect()->route('categories.index')->with('success', 'Xóa danh mục thành công!');
+    }
+}
+
+
+## View
+Cấu trúc chính của view
+![image](https://github.com/user-attachments/assets/a0108521-3ac9-4a45-8c98-4e9216122915)
+
+# Security Setup
+
+# Link
+## Github link
+https://github.com/chanie-t/Project
+## Github page
+
+
+
+
+# Một số hình ảnh chức năng chính
+
+## Xác thực người dùng 
+
+
+## Trang chính
+
+## CRUD Products
+
+
+## CRUD Categories
+
+
+## CRUD Brands
+
+
