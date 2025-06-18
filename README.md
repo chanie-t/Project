@@ -418,10 +418,28 @@ Cấu trúc chính của view
 
 # Security Setup
 <strong>
-    Luôn sử dụng phiên bản Laravel mới nhất để đảm bảo ứng dụng nhận được các bản vá bảo mật, cải tiến hiệu năng và các tính năng mới nhất từ cộng đồng phát triển
+    Luôn sử dụng phiên bản mới nhất giúp ứng dụng được cải tiến hiệu năng và các tính năng mới nhất
 </strong>
 
 ![image](https://github.com/user-attachments/assets/92d2377c-6fec-46cc-8e99-13de409f1fe7)
+
+<strong>
+    Chống giả mạo yêu cầu CSRF
+</strong>
+
+![image](https://github.com/user-attachments/assets/901c80a6-f8b0-44ea-856e-6b718e3ee4cb)
+
+<strong>
+     duyệt qua danh sách danh mục,thấy đúng danh mục và thương hiệu đang được chọn, đồng thời có thể chọn lại cái khác nếu muốn.
+</strong>
+
+![image](https://github.com/user-attachments/assets/04f53529-2287-4590-bb8d-bf9f5bea58d3)
+
+<strong>
+    bảo vệ và kiểm soát quyền truy cập vào các route
+</strong>
+![image](https://github.com/user-attachments/assets/d4fccb19-afe3-4a2c-8959-dfc69d968324)
+
 
 
 # Link
