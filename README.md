@@ -38,7 +38,8 @@ php artisan migrate
 ![image](https://github.com/user-attachments/assets/f13ca2c9-b702-4dad-9a3c-c0598721f8fd)
 
 ## 🧠Sơ đồ thuật toán
-Dasboard
+<strong>Dasboard</strong>
+
 
 ![image](https://github.com/user-attachments/assets/ad013140-5993-4f88-8ada-9cfc470ee5da)
 
@@ -270,7 +271,9 @@ CRUD Brand
     }
 }
 
-*BrandsController:
+<strong>
+BrandsController:
+</strong>
 
         class BrandController extends Controller
 {
