@@ -438,6 +438,7 @@ Cấu trúc chính của view
 <strong>
     bảo vệ và kiểm soát quyền truy cập vào các route
 </strong>
+
 ![image](https://github.com/user-attachments/assets/d4fccb19-afe3-4a2c-8959-dfc69d968324)
 
 
