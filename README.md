@@ -3,6 +3,7 @@
 <h2>Thông tin cá nhân</h2>
 
 👤 **Họ tên:** Nguyễn Thùy Trang 
+
 🎓 **Mã sinh viên:** 23010487
 
 ## 📝 Mô tả dự án
@@ -42,6 +43,7 @@ php artisan migrate
 # Một số Code chính minh họa
 ## Model
 *Product Model: 
+
         class Product extends Model
 {
      use HasFactory;
@@ -84,6 +86,7 @@ php artisan migrate
 }
 
 *Brands model:
+
         class Brand extends Model
 {
     use HasFactory;
@@ -101,6 +104,7 @@ php artisan migrate
 
 
 *Category model:
+
         class Category extends Model
 {
     use HasFactory;
@@ -119,6 +123,7 @@ php artisan migrate
 
 ## Controller
 *ProductController 
+
         class ProductController extends Controller
 {
     public function index(Request $request)
@@ -251,6 +256,7 @@ php artisan migrate
 }
 
 *BrandsController:
+
         class BrandController extends Controller
 {
    public function index(Request $request)
@@ -319,6 +325,7 @@ php artisan migrate
 
 
 *CategoryController:
+
         class CategoryController extends Controller
 {
     public function index(Request $request)
@@ -388,6 +395,7 @@ php artisan migrate
 
 ## View
 Cấu trúc chính của view
+
 ![image](https://github.com/user-attachments/assets/a0108521-3ac9-4a45-8c98-4e9216122915)
 
 # Security Setup
@@ -409,11 +417,27 @@ Trang đăng ký
 ![image](https://github.com/user-attachments/assets/dbb6c939-2eae-48a8-aabe-61ffac57172c)
 Thêm sản phẩm
 ![image](https://github.com/user-attachments/assets/6fd9acf0-48ff-404d-bf7b-e915782cd119)
+Xem , sửa và xóa :
+![image](https://github.com/user-attachments/assets/82518721-7981-4649-a296-48439209eef1)
 
 ## CRUD Categories
 ![image](https://github.com/user-attachments/assets/e118003d-65e9-45f3-8bbb-72aff9229f06)
+Thêm mới:
+![image](https://github.com/user-attachments/assets/78eca0c7-47c5-47dd-8309-60f3f9dbbce4)
+Sửa và xóa:
+![image](https://github.com/user-attachments/assets/f9ba8ad6-237a-40df-8a53-b48422ae1103)
+Xem sản phẩm:
+![image](https://github.com/user-attachments/assets/501993e1-31b4-4760-9a54-a3bb6d12520a)
+
+
 
 ## CRUD Brands
 ![image](https://github.com/user-attachments/assets/233373bc-1863-47db-acb3-1683ba1f70d8)
+Thêm mới:
+![image](https://github.com/user-attachments/assets/48d5584b-6f64-44dc-b944-3d857066f801)
+sửa và xóa:
+![image](https://github.com/user-attachments/assets/e721d089-e915-4dfa-a0c1-849fffc03f3f)
+
+
 
 
