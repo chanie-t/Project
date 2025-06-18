@@ -10,7 +10,7 @@
               <div class="pc__info position-relative">
                 <h6 class="pc__title">{{$product->name}}</h6>
                 <div class="product-card__price d-flex align-items-center">
-                  <span class="money ">{{$product->price}} đ</span>
+                    <span class="money ">{{ number_format($product->price, 0, ',', '.') }}₫</span>
                 </div>
 
                 <div

@@ -29,11 +29,11 @@
                                 </div>
                                 <!-- new-category -->
                                 <div class="wg-box">
-                                    <form class="form-new-product form-style-1" action="{{route('brands.store')}}" method="POST"
-                                        enctype="multipart/form-data">
+                                    <form class="form-new-product form-style-1" action="{{route('brands.store')}}" method="POST">
+                                        @csrf
                                         <fieldset class="name">
-                                            <div class="body-title">Tên danh mục <span class="tf-color-1">*</span></div>
-                                           <input id="name" class="flex-grow" type="text" placeholder="Nhập tên danh mục" name="name"
+                                            <div class="body-title">Tên nhãn hàng <span class="tf-color-1">*</span></div>
+                                           <input id="name" class="flex-grow" type="text" placeholder="Nhập tên nhãn hàng" name="name"
     tabindex="0" value="" aria-required="true" required="">
                                         </fieldset>
                                         <fieldset class="name">
@@ -41,24 +41,9 @@
                                             <input id="slug" class="flex-grow" type="text" placeholder="Nhập Slug" name="slug"
                                                 tabindex="0" value="" aria-required="true" required="">
                                         </fieldset>
-                                        <fieldset>
-                                            <div class="body-title">Upload images <span class="tf-color-1">*</span>
-                                            </div>
-                                            <div class="upload-image flex-grow">
-                                                <div class="item" id="imgpreview" style="display:none">
-                                                    <img src="upload-1.html" class="effect8" alt="">
-                                                </div>
-                                                <div id="upload-file" class="item up-load">
-                                                    <label class="uploadfile" for="myFile">
-                                                        <span class="icon">
-                                                            <i class="icon-upload-cloud"></i>
-                                                        </span>
-                                                        <span class="body-text">Drop your images here or select <span
-                                                                class="tf-color">click to browse</span></span>
-                                                        <input type="file" id="myFile" name="image" accept="image/*">
-                                                    </label>
-                                                </div>
-                                            </div>
+                                        <fieldset class="name">
+                                            <div class="body-title">Mô tả <span class="tf-color-1">*</span></div>
+                                            <textarea class="flex-grow"  name="description" id="" cols="30" rows="10"></textarea>
                                         </fieldset>
 
                                         <div class="bot">
