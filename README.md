@@ -1,4 +1,4 @@
-<h1 align="center"><strong>Project: Website bán hàng điện tử</strong>  </h1>
+<h1 align="center"><strong>Project: Website bán hàng</strong>  </h1>
 
 <h2>Thông tin cá nhân</h2>
 
@@ -8,7 +8,7 @@
 
 ## 📝 Mô tả dự án
 
-Website bán hàng điện tử, cho phép người quản lý thêm, xóa, phân loại sản phẩm.  
+Website bán hàng, cho phép người quản lý thêm, xóa, phân loại sản phẩm.  
 Dự án sử dụng Laravel, MySQL.
 
 ## 🧰 Công nghệ sử dụng
@@ -38,6 +38,21 @@ php artisan migrate
 ![image](https://github.com/user-attachments/assets/f13ca2c9-b702-4dad-9a3c-c0598721f8fd)
 
 ## 🧠Sơ đồ thuật toán
+Dasboard
+
+![image](https://github.com/user-attachments/assets/ad013140-5993-4f88-8ada-9cfc470ee5da)
+
+CRUD Product
+
+![image](https://github.com/user-attachments/assets/c3e94a0f-7796-4c5a-b04d-8a2ddd1345e1)
+
+CRUD Category
+
+![image](https://github.com/user-attachments/assets/2ae345ec-a9d0-4810-a24e-e61e1a570b88)
+
+CRUD Brand
+
+![image](https://github.com/user-attachments/assets/091ac992-7e7a-4af7-9f74-19b7ded57ca4)
 
 
 # Một số Code chính minh họa
