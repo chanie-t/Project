@@ -39,8 +39,6 @@ php artisan migrate
 
 ## 🧠Sơ đồ thuật toán
 <strong>Dasboard</strong>
-
-
 ![image](https://github.com/user-attachments/assets/ad013140-5993-4f88-8ada-9cfc470ee5da)
 
 <strong>CRUD Product</strong>
@@ -100,22 +98,6 @@ php artisan migrate
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 *Brands model:
