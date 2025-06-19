@@ -98,6 +98,23 @@ CRUD Brand
 
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 *Brands model:
 
         class Brand extends Model
